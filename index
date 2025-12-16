@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing: E-Commerce & Business Models</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            500: '#64748b', // Slate
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Additional Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        /* Hide scrollbar for specific elements if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Smooth animation for mobile menu */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Diagram connectors */
+        .connector-line {
+            position: relative;
+        }
+        .connector-line::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -20px;
+            width: 2px;
+            height: 20px;
+            background-color: #cbd5e1;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased">
+
+    <!-- 1. READING PROGRESS BAR -->
+    <div class="fixed top-0 left-0 w-full h-1.5 z-50 bg-slate-200">
+        <div id="progress-bar" class="h-full bg-primary-600 width-0 transition-all duration-150 ease-out" style="width: 0%"></div>
+    </div>
+
+    <!-- 2. STICKY NAVBAR -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 z-40 shadow-sm mt-1.5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Title -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        CC
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-sm font-bold text-slate-900 leading-tight">CLOUD COMPUTING</h1>
+                        <p class="text-xs text-slate-500">Business Model Analysis</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#intro" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">Home</a>
+                    <a href="#objetivos" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">Objectives</a>
+                    <a href="#funcionalidades" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">Functionalities</a>
+                    <a href="#requisitos" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">Requirements</a>
+                    <a href="#mapeo" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">Mapping</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+                        <!-- Hamburger Icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white border-b border-slate-200 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#intro" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50">Home</a>
+                <a href="#objetivos" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50">Business Objectives</a>
+                <a href="#funcionalidades" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50">Functionalities</a>
+                <a href="#requisitos" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50">Info Requirements</a>
+                <a href="#mapeo" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50">Integrated Mapping</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN LAYOUT -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+            
+            <!-- LEFT COLUMN (CONTENT) -->
+            <main class="lg:col-span-8 xl:col-span-9 space-y-16">
+
+                <!-- 1. HERO / COVER -->
+                <section id="intro" class="relative bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-8 sm:p-12">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-primary-100 rounded-full blur-3xl opacity-50"></div>
+                    <span class="inline-block px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">
+                        UNJFSC
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                        E-Commerce System <br/>
+                        <span class="text-primary-600">Requirements</span>
+                    </h1>
+                    <p class="text-xl text-slate-500 font-light mb-8">
+                        Cloud Computing and Business Model
+                    </p>
+                    <div class="prose prose-slate max-w-none text-slate-600">
+                        <p class="mb-4">
+                            <strong>Introduction:</strong> In the current digital era, e-commerce systems are not simply virtual storefronts, but complex ecosystems based on the cloud.
+                        </p>
+                        <p>
+                            This project analyzes the critical architecture of a digital business, breaking down how **Business Objectives** dictate **System Functionalities**, and how these, in turn, define strict **Information Requirements** to operate with efficiency, scalability, and security.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 2. TABLE OF CONTENTS (Mobile/Tablet only) -->
+                <div class="lg:hidden bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-900 mb-3">Report Content</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#objetivos" class="flex items-center text-primary-600 hover:underline"><span class="mr-2">01.</span> Business Objectives</a></li>
+                        <li><a href="#funcionalidades" class="flex items-center text-primary-600 hover:underline"><span class="mr-2">02.</span> System Functionalities</a></li>
+                        <li><a href="#requisitos" class="flex items-center text-primary-600 hover:underline"><span class="mr-2">03.</span> Information Requirements</a></li>
+                        <li><a href="#mapeo" class="flex items-center text-primary-600 hover:underline"><span class="mr-2">04.</span> Integrated Mapping</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. BUSINESS OBJECTIVES -->
+                <section id="objetivos">
+                    <div class="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+                        <div class="p-2 bg-indigo-100 rounded-lg text-indigo-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-900">Business Objectives</h2>
+                    </div>
+
+                    <div class="grid gap-6">
+                        <!-- Slide 1 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                                <span class="bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">1</span>
+                                Increase Global Sales
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 ml-9 list-disc">
+                                <li>Reach new international markets through 24/7 availability.</li>
+                                <li>Reduce shopping cart abandonment rate by 15%.</li>
+                                <li>Implement automated Cross-selling and Up-selling strategies.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                                <span class="bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span>
+                                Optimize Operational Efficiency
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 ml-9 list-disc">
+                                <li>Automate order processing to reduce human error.</li>
+                                <li>Real-time inventory synchronization across channels.</li>
+                                <li>Reduce support costs through customer self-service.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                                <span class="bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</span>
+                                Customer Loyalty
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 ml-9 list-disc">
+                                <li>Personalize user experience based on browsing history.</li>
+                                <li>Implement integrated loyalty and rewards programs.</li>
+                                <li>Ensure a seamless post-sale experience (tracking/returns).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                                <span class="bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">4</span>
+                                Data-Driven Decision Making
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 ml-9 list-disc">
+                                <li>Real-time monitoring of sales and traffic KPIs.</li>
+                                <li>Predictive analysis for seasonal stock management.</li>
+                                <li>Advanced customer segmentation for targeted marketing.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 5 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                                <span class="bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">5</span>
+                                Scalability and Security
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 ml-9 list-disc">
+                                <li>Ensure 99.9% uptime during traffic peaks (Black Friday).</li>
+                                <li>Strict compliance with data protection regulations (GDPR/LPDP).</li>
+                                <li>Flexible architecture to integrate new payment gateways.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. SYSTEM FUNCTIONALITIES -->
+                <section id="funcionalidades">
+                    <div class="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+                        <div class="p-2 bg-emerald-100 rounded-lg text-emerald-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-900">System Functionalities</h2>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <!-- Func 1 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Front-Office</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Catalog Management</h4>
+                            <p class="text-sm text-slate-600">Advanced search, dynamic filtering, product visualization, and variant control (size/color).</p>
+                        </div>
+
+                        <!-- Func 2 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Transactional</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Checkout & Payments</h4>
+                            <p class="text-sm text-slate-600">Persistent cart, real-time tax/shipping calculation, gateway integration (Stripe/PayPal).</p>
+                        </div>
+
+                        <!-- Func 3 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Back-Office</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Order Management (OMS)</h4>
+                            <p class="text-sm text-slate-600">Status workflow (pending, processing, shipped), shipping label generation, and invoicing.</p>
+                        </div>
+
+                        <!-- Func 4 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Identity</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">User Management</h4>
+                            <p class="text-sm text-slate-600">Authentication (SSO/Social Login), profile management, saved addresses, and order history.</p>
+                        </div>
+
+                        <!-- Func 5 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Logistics</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Inventory Control</h4>
+                            <p class="text-sm text-slate-600">Temporary stock reservations, low stock alerts, multi-warehouse synchronization.</p>
+                        </div>
+
+                        <!-- Func 6 -->
+                        <div class="bg-white p-5 rounded-lg border border-slate-200">
+                            <div class="text-emerald-600 mb-2 font-bold uppercase text-xs tracking-wider">Analytics</div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Dashboard & Reporting</h4>
+                            <p class="text-sm text-slate-600">Visualization of sales by period, top-selling products, and user behavior.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. INFORMATION REQUIREMENTS -->
+                <section id="requisitos">
+                    <div class="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-900">Systems Analysis</h2>
+                            <p class="text-sm text-slate-500 mt-1">Table 4.2: Objectives, Functionalities, and Information Requirements</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+                        <table class="min-w-full divide-y divide-slate-200 bg-white">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-700 uppercase tracking-wider w-1/3">Business Objective</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-700 uppercase tracking-wider w-1/3">System Functionality</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-700 uppercase tracking-wider w-1/3">Information Requirements</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Display goods</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">Digital catalog</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Dynamic text and graphics.</td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Provide product information</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">Product database</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Product descriptions, stock numbers, and inventory levels.</td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Personalize / Customize product</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">Customer on-site tracking</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Site log for every customer visit; data mining capability to identify common paths.</td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Engage customers in conversations</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">On-site blog / User forums</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">User feedback and community building features.</td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Execute a transaction</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Shopping cart / Payment system</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Secure credit card clearing; multiple payment options.</td>
+                                </tr>
+                                <!-- Row 6 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Accumulate customer information</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Customer database</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Name, address, phone, email, and online registration.</td>
+                                </tr>
+                                <!-- Row 7 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Provide after-sale support</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Sales database</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Customer ID, product purchased, date, payment, and shipment date.</td>
+                                </tr>
+                                <!-- Row 8 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Coordinate marketing / advertising</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">Ad server / Email server</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Site behavior log of prospects and customers linked to marketing displays.</td>
+                                </tr>
+                                <!-- Row 9 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Understand marketing effectiveness</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">Site tracking and reporting system</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Number of unique visitors, pages visited, and products purchased, identified by marketing campaign.</td>
+                                </tr>
+                                <!-- Row 10 -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-900">Provide production and supplier links</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800">Inventory management system</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">Product levels, supplier ID, contact, and order quantity data.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 6. INTEGRATED MAPPING (Diagram) -->
+                <section id="mapeo">
+                    <div class="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+                        <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-900">Integrated Mapping</h2>
+                    </div>
+
+                    <div class="bg-slate-50 p-8 rounded-xl border border-slate-200">
+                        <p class="text-center text-slate-500 mb-8 max-w-2xl mx-auto">
+                            The following diagram illustrates how a **Business Objective** (Sale) triggers a **Functionality** (Checkout), which consumes and generates specific **Information**.
+                        </p>
+
+                        <!-- CSS Diagram -->
+                        <div class="flex flex-col items-center max-w-md mx-auto relative">
+                            
+                            <!-- Box 1 -->
+                            <div class="w-full bg-white p-4 rounded-lg shadow-md border-l-4 border-indigo-500 text-center z-10 connector-line">
+                                <span class="text-xs font-bold text-indigo-500 uppercase tracking-widest">Objective</span>
+                                <h4 class="font-bold text-slate-800">Close Sale</h4>
+                            </div>
+
+                            <!-- Arrow Down -->
+                            <div class="h-8 border-l-2 border-slate-300 border-dashed my-2"></div>
+
+                            <!-- Box 2 -->
+                            <div class="w-full bg-white p-4 rounded-lg shadow-md border-l-4 border-emerald-500 text-center z-10 connector-line">
+                                <span class="text-xs font-bold text-emerald-500 uppercase tracking-widest">Functionality</span>
+                                <h4 class="font-bold text-slate-800">Checkout & Gateway</h4>
+                                <p class="text-xs text-slate-500 mt-1">Processes purchase intent</p>
+                            </div>
+
+                             <!-- Arrow Down -->
+                             <div class="h-8 border-l-2 border-slate-300 border-dashed my-2"></div>
+
+                            <!-- Box 3 -->
+                            <div class="w-full bg-slate-800 p-4 rounded-lg shadow-md border-l-4 border-blue-400 text-center z-10">
+                                <span class="text-xs font-bold text-blue-300 uppercase tracking-widest">Generated Data</span>
+                                <div class="mt-2 text-left bg-slate-900 p-3 rounded text-xs font-mono text-green-400">
+                                    {<br>
+                                    &nbsp;&nbsp;"order_id": "ORD-2024",<br>
+                                    &nbsp;&nbsp;"total": 150.00,<br>
+                                    &nbsp;&nbsp;"status": "paid"<br>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. CONCLUSIONS -->
+                <section class="bg-primary-50 rounded-2xl p-8 border border-primary-100">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Conclusions</h3>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        The alignment between strategic objectives and information architecture is the determining factor in the success of an E-commerce business. It is not enough to have the functionality; precise data capture is required to feed back into the business model.
+                    </p>
+                    <p class="text-slate-700 leading-relaxed">
+                        In a Cloud environment, this structure allows resources to scale dynamically according to demand informed by data, optimizing costs and maximizing the end-user experience.
+                    </p>
+                </section>
+
+            </main>
+
+            <!-- RIGHT COLUMN (DESKTOP SIDEBAR) -->
+            <aside class="hidden lg:block lg:col-span-4 xl:col-span-3">
+                <div class="sticky top-24 space-y-8">
+                    
+                    <!-- 1. Table of Contents -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">On this page</h4>
+                        <nav class="flex flex-col space-y-3">
+                            <a href="#intro" class="text-sm text-slate-600 hover:text-primary-600 hover:translate-x-1 transition-transform">Introduction</a>
+                            <a href="#objetivos" class="text-sm text-slate-600 hover:text-primary-600 hover:translate-x-1 transition-transform">Business Objectives</a>
+                            <a href="#funcionalidades" class="text-sm text-slate-600 hover:text-primary-600 hover:translate-x-1 transition-transform">Functionalities</a>
+                            <a href="#requisitos" class="text-sm text-slate-600 hover:text-primary-600 hover:translate-x-1 transition-transform">Info Requirements</a>
+                            <a href="#mapeo" class="text-sm text-slate-600 hover:text-primary-600 hover:translate-x-1 transition-transform">System Mapping</a>
+                        </nav>
+                    </div>
+
+                    <!-- 2. Team Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <h4 class="text-sm font-bold text-slate-900">Team</h4>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">CC</div>
+                                <span class="text-sm text-slate-700">Chavez Cruz Celio</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">CG</div>
+                                <span class="text-sm text-slate-700">Chirito Gomez Lorenzo</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">EB</div>
+                                <span class="text-sm text-slate-700">Espejo Blas Luis</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">TC</div>
+                                <span class="text-sm text-slate-700">Tahua Castillo Cristhian</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. Resources -->
+                    <div class="bg-slate-900 rounded-xl shadow-md p-6 text-white text-center">
+                        <svg class="w-8 h-8 mx-auto mb-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <h4 class="font-bold mb-2">Course Resources</h4>
+                        <p class="text-xs text-slate-400 mb-4">Download the complete UML diagram and technical documentation.</p>
+                        <button class="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition">
+                            Download PDF
+                        </button>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="text-sm text-slate-500">&copy; 2024 Cloud Computing Course. All rights reserved.</p>
+                <p class="text-xs text-slate-400 mt-1">Universidad Nacional José Faustino Sánchez Carrión.</p>
+            </div>
+            
+            <!-- Mobile Credits (Visible only on small screens) -->
+            <div class="lg:hidden text-center">
+                <p class="text-xs font-bold text-slate-500 mb-2">Members:</p>
+                <p class="text-xs text-slate-400">Chavez, Chirito, Espejo, Tahua.</p>
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-slate-400 hover:text-slate-500">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Reading Progress Bar
+        window.onscroll = function() { updateProgressBar() };
+
+        function updateProgressBar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        }
+
+        // 2. Mobile Menu Toggle
+        const btn = document.getElementById("mobile-menu-btn");
+        const menu = document.getElementById("mobile-menu");
+        const links = document.querySelectorAll(".mobile-link");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("open");
+            // Toggle hidden class for accessibility (optional, we manage height here)
+            if (menu.classList.contains("hidden")) {
+                menu.classList.remove("hidden");
+                setTimeout(() => menu.classList.add("open"), 10);
+            } else {
+                if (menu.classList.contains("open")) {
+                    menu.classList.remove("open");
+                    // Wait for transition
+                    setTimeout(() => menu.classList.add("hidden"), 300);
+                } else {
+                    menu.classList.remove("hidden");
+                    setTimeout(() => menu.classList.add("open"), 10);
+                }
+            }
+        });
+
+        // Close menu when clicking a link
+        links.forEach(link => {
+            link.addEventListener("click", () => {
+                menu.classList.remove("open");
+            });
+        });
+
+        // 3. Smooth Scroll (Native in CSS 'scroll-smooth', basic polyfill for older browsers)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 80; // Adjustment for sticky navbar
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
